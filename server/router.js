@@ -8,8 +8,14 @@ router.get("/", (req, res) => {
 
 // GET
 // return a file based on requested id
-router.get("/:id", (req, res) => {
-  res.send("About birds");
+const getFile = require("../db/getFile");
+router.get("/:id", async (req, res, next) => {
+  try {
+    const fileData = await getFile(req.params.id);
+    res.send(fileData);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // POST
