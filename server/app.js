@@ -11,13 +11,6 @@ const env = process.env.ENV || "dev";
 app.use(morgan(env));
 
 // route handlers
-app.get("/", (req, res) => {
-  res.status(200).send("Hello World!");
-});
-
-app.post("/", (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
-});
+app.use("/api", require("./router"));
 
 module.exports = app;
