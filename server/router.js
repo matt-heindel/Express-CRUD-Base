@@ -19,9 +19,15 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // POST
-router.post("/", (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+// create a new file with an auto increment id
+const postFile = require("../db/postFile");
+router.post("/", async (req, res, next) => {
+  try {
+    const postResult = await postFile(req.body);
+    res.status(201).send(postResult);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
